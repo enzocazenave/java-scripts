@@ -1,6 +1,6 @@
 package tp1.tres.src;
 
-import src.Pila;
+import tp1.dos.src.Pila;
 
 public class Cola {
     int[] a;
@@ -29,10 +29,6 @@ public class Cola {
 	}
 	
 	public int Primero() {
-        for (int i = 0; i < 100; i++) {
-            System.out.println(a[i]);
-        }
-
 		return a[cont - 1];
 	}
 	
@@ -50,8 +46,6 @@ public class Cola {
 			this.Acolar(aux.Primero());
 			aux.Desacolar();
 		}
-
-        System.out.println("");
 	}
 
     public void PasarCola(Cola colaDestino) {
@@ -84,12 +78,6 @@ public class Cola {
         }
     }
 
-    public void InvertirColaSinPila() {
-        Cola colaAux = new Cola();
-        colaAux.InicializarCola();
-
-    }
-
     public boolean EsCapicua() {
         Pila auxPila = new Pila();
         Cola auxCola = new Cola();
@@ -97,7 +85,7 @@ public class Cola {
         auxPila.inicializePila();
         auxCola.InicializarCola();
 
-        boolean capicua = false;
+        boolean capicua = true;
 
         while (!ColaVacia()) {
             auxPila.stack(Primero());
@@ -106,18 +94,12 @@ public class Cola {
         }
 
         while (!auxCola.ColaVacia()) {
-            if (auxPila.getLastItem() == auxCola.Primero()) {
-                capicua = true;
-            } else {
+            if (auxPila.getLastItem() != auxCola.Primero()) {
                 capicua = false;
             }
 
-            auxPila.unstack();
-            auxCola.Desacolar();
-        }
-
-        while (!auxCola.ColaVacia()) {
             Acolar(auxCola.Primero());
+            auxPila.unstack();
             auxCola.Desacolar();
         }
 

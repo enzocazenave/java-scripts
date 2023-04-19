@@ -8,11 +8,17 @@ public class Main {
         cola1.InicializarCola();
         cola2.InicializarCola();
 
-        cola1.Acolar(2);
-        cola1.Acolar(1);
-        cola1.Acolar(5);
-        cola1.Acolar(7);
+        cola1.Acolar(4);
+        cola1.Acolar(3);
+        cola1.Acolar(3);
+        cola1.Acolar(4);
 
-        cola1.InvertirColaSinPila();
+        if (cola1.EsCapicua()) {
+            System.out.println("Es capicua");
+        } else {
+            System.out.println("No es capicua");
+        }
+
+        cola1.MostrarCola();
     }
 }

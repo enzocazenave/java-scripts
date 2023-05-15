@@ -35,8 +35,8 @@ public class Pila {
         }
     }
 
-    public void invertPila() { 
-        Pila aux = new Pila(); 
+    public void invertPila() {
+        Pila aux = new Pila();
         Pila aux2 = new Pila();
 
         while (!isPilaEmpty()) {
@@ -47,7 +47,7 @@ public class Pila {
             aux2.stack(aux.getLastItem());
             aux.unstack();
         }
-        while(!aux2.isPilaEmpty()) {
+        while (!aux2.isPilaEmpty()) {
             stack(aux2.getLastItem());
             aux2.unstack();
         }
@@ -81,11 +81,11 @@ public class Pila {
             unstack();
         }
 
-        while(!aux.isPilaEmpty()) {
+        while (!aux.isPilaEmpty()) {
             stack(aux.getLastItem());
             aux.unstack();
         }
-        
+
         return contador;
     }
 

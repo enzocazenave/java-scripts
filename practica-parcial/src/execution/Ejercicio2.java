@@ -53,7 +53,7 @@ public class Ejercicio2 {
             cola.Desacolar();
         }
 
-        while (!pilaConjunto.conjuntoVacio() && !colaConjunto.conjuntoVacio()) {
+        while (!pilaConjunto.conjuntoVacio()) {
             int x = pilaConjunto.elegir();
             pilaConjunto.sacarElemento(x);
 

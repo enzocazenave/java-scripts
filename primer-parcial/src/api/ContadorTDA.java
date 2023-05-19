@@ -6,4 +6,5 @@ public interface ContadorTDA {
     void Descontar();
     void Reiniciar();
     int Mostrar();
+    void Incrementar(int x);
 }

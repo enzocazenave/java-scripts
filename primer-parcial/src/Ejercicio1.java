@@ -63,25 +63,27 @@ public class Ejercicio1 {
     }
 
     public static ConjuntoTA mismosElementos(PilaLD pila, ColaLD cola) {
-        ConjuntoTA conjuntoDeRepetidos = new ConjuntoTA();
-        ConjuntoTA conjuntoAux = new ConjuntoTA();
+        ConjuntoTA conjuntoDeRepetidos = new ConjuntoTA(); // o(1)
+        ConjuntoTA conjuntoAux = new ConjuntoTA(); // o(1)
 
-        conjuntoDeRepetidos.inicializarConjunto();
-        conjuntoAux.inicializarConjunto();
+        conjuntoDeRepetidos.inicializarConjunto(); // o(1)
+        conjuntoAux.inicializarConjunto(); // o(1)
 
-        while (!pila.PilaVacia()) {
-            conjuntoAux.agregarElemento(pila.Tope());
-            pila.Desapilar();
+        while (!pila.PilaVacia()) { // o(n)
+            conjuntoAux.agregarElemento(pila.Tope()); // o(1)
+            pila.Desapilar(); // o(1)
         }
 
-        while (!cola.ColaVacia()) {
-            if (conjuntoAux.pertenece(cola.Primero()))
-                conjuntoDeRepetidos.agregarElemento(cola.Primero());
+        while (!cola.ColaVacia()) { // o(n)
+            if (conjuntoAux.pertenece(cola.Primero())) // o(n)
+                conjuntoDeRepetidos.agregarElemento(cola.Primero()); // o(n)
 
 
-            cola.Desacolar();
+            cola.Desacolar(); // o(1)
         }
 
-        return conjuntoDeRepetidos;
+        return conjuntoDeRepetidos; // o(1)
+
+        // EL COSTO DE ESTE METODO ES O(N^3)
     }
 }

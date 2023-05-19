@@ -16,5 +16,9 @@ public class Ejercicio2 {
         contador.Reiniciar();
 
         System.out.println(contador.Mostrar());
+
+        contador.Incrementar(5);
+
+        System.out.println(contador.Mostrar());
     }
 }

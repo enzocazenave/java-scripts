@@ -1,4 +1,5 @@
 package impl;
+
 import api.ContadorTDA;
 
 public class Contador implements ContadorTDA {
@@ -20,6 +21,10 @@ public class Contador implements ContadorTDA {
 
     public void Reiniciar() {
         contador = 0;
+    }
+
+    public void Incrementar(int x) {
+        contador += x;
     }
 
     public int Mostrar() {

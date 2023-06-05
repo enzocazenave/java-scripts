@@ -1,0 +1,778 @@
+//--------------//
+//  Interfaces  //
+//--------------//
+
+//--------------------------------------------------------------------------------PilaTDA
+
+package api;
+
+public interface PilaTDA {
+	void InicializarPila();		// Sin precondiciones
+	void Apilar(int x);			// Pila inicializada
+	void Desapilar();			// Pila inicializada y no vacía 
+	int Tope();					// Pila inicializada y no vacía 
+	boolean PilaVacia();		// Pila inicializada
+}
+
+//--------------------------------------------------------------------------------ColaTDA
+
+package api;
+
+public interface ColaTDA {
+	void InicializarCola();
+	void Acolar(int x);
+	void Desacolar();
+	int Primero();
+	boolean ColaVacia();
+}
+
+//--------------------------------------------------------------------------------ColaPrioridadTDA
+
+package api;
+
+public interface ColaPrioridadTDA {
+	void InicializarCola();
+	void AcolarPrioridad(int x, int prioridad);
+	void Desacolar();
+	int Primero();
+	int Prioridad();
+	boolean ColaVacia();
+}
+
+//--------------------------------------------------------------------------------ConjuntoTDA
+
+package api;
+
+public interface ConjuntoTDA {
+	void InicializarConjunto();
+	void Agregar(int x);
+	void Sacar(int x);
+	int Elegir();
+	boolean Pertenece(int x);
+	boolean ConjuntoVacio();
+}
+
+
+//--------------------------------------------------------------------------------DiccionarioSimpleTDA
+
+package api;
+
+public interface DiccionarioSimpleTDA {
+	void InicializarDiccionario();
+	void Agregar(int clave, int x);
+	void Eliminar(int clave);
+	int Recuperar(int clave);
+	ConjuntoTDA Claves();
+}
+
+//--------------------------------------------------------------------------------DiccionarioMultipleTDA
+
+package api;
+
+public interface DiccionarioMultipleTDA {
+	void InicializarDiccionario();
+	void Agregar(int clave, int valor);
+	void Eliminar(int clave);
+	void EliminarValor(int clave, int valor);
+	ConjuntoTDA Recuperar(int clave);
+	ConjuntoTDA Claves();
+}
+
+//--------------------------------------------------------------------------------ABBTDA
+
+package api;
+
+public interface ABBTDA {
+	void InicializarArbol();				// sin precondiciones
+	int Raiz();								// árbol inicializado y no vacío
+	ABBTDA HijoIzq();						// árbol inicializado y no vacío
+	ABBTDA HijoDer();						// árbol inicializado y no vacío
+	void AgregarElem(int x);				// árbol inicializado
+	void EliminarElem(int x);				// árbol inicializado
+	boolean ArbolVacio();					// árbol inicializado
+}
+
+//--------------------------------------------------------------------------------GrafoTDA
+
+package api;
+
+public interface GrafoTDA {
+	public void InicializarGrafo();
+	public void AgregarVertice(int x);
+	public void EliminarVertice(int x);
+	public void AgregarArista(int x, int y, int w);
+	public void EliminarArista(int x, int y);
+	public int PesoArista(int x, int y);
+	public boolean ExisteArista (int x, int y);
+	public ConjuntoTDA Vertices();
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------//
+//  Implementaciones estáticas  //
+//------------------------------//
+
+//--------------------------------------------------------------------------------PilaTF
+
+package imp;
+
+import api.PilaTDA;
+
+public class PilaTF implements PilaTDA {
+
+	int[] arr;		// Aquí se guardan los números de la pila. El tope al final
+	int cant;		// Cantidad de elementos en la pila
+	
+	@Override
+	public void InicializarPila() {
+		arr = new int[20];
+		cant = 0;
+	}
+
+	@Override
+	public void Apilar(int x) {
+		arr[cant] = x;
+		cant++;
+	}
+
+	@Override
+	public void Desapilar() {
+		cant--;
+	}
+
+	@Override
+	public int Tope() {
+		return arr[cant-1];
+	}
+
+	@Override
+	public boolean PilaVacia() {
+		return (cant == 0);
+	}
+}
+
+//--------------------------------------------------------------------------------ColaPU
+
+package imp;
+
+import api.ColaTDA;
+
+public class ColaPU implements ColaTDA {
+	
+	int[] arr;
+	int cant;
+	
+	@Override
+	public void InicializarCola() {
+		arr = new int[20];
+		cant = 0;
+	}
+
+	@Override
+	public void Acolar(int x) {
+		for(int i = cant - 1; i >= 0; i--) {
+			arr[i + 1] = arr[i];
+		}
+		arr[0] = x;
+		cant++;
+	}
+
+	@Override
+	public void Desacolar() {
+		cant--;
+	}
+
+	@Override
+	public int Primero() {
+		return arr[cant - 1];
+	}
+
+	@Override
+	public boolean ColaVacia() {
+		return (cant == 0);
+	}
+}
+
+//--------------------------------------------------------------------------------ColaPrioridadAO
+
+package imp;
+
+import api.ColaPrioridadTDA;
+
+public class ColaPrioridadAO implements ColaPrioridadTDA {
+
+	class Elemento{
+		int valor;
+		int prioridad;
+	}
+	
+	Elemento[] arr;
+	int cant; 
+	
+	@Override
+	public void InicializarCola() {
+		arr = new Elemento[20];
+		cant = 0;
+	}
+
+	@Override
+	public void AcolarPrioridad(int x, int prioridad) {
+		int i = cant;
+		while(i > 0 && arr[i - 1].prioridad > prioridad) {
+			arr[i] = arr[i - 1];
+			i--;
+		}
+		arr[i] = new Elemento();
+		arr[i].valor = x;
+		arr[i].prioridad = prioridad;
+		cant++;
+	} 
+
+	@Override
+	public void Desacolar() {
+		cant--;
+	}
+
+	@Override
+	public int Primero() {
+		return arr[cant - 1].valor;
+	}
+
+	@Override
+	public int Prioridad() {
+		return arr[cant - 1].prioridad;
+	}
+
+	@Override
+	public boolean ColaVacia() {
+		return (cant == 0);
+	}
+}
+
+//--------------------------------------------------------------------------------ConjuntoTA
+
+package imp;
+
+import api.ConjuntoTDA;
+
+public class ConjuntoTA implements ConjuntoTDA {
+
+	int[] arr;
+	int cant;
+	
+	@Override
+	public void InicializarConjunto() {
+		arr = new int[20];
+		cant = 0;
+	}
+
+	@Override
+	public void Agregar(int x) {
+		if (!Pertenece(x)) {
+			arr[cant] = x;
+			cant++;
+		}
+
+	}
+
+	@Override
+	public void Sacar(int x) {
+		int i = 0;
+		while(i < cant && arr[i] != x)
+			i++;
+		if (i < cant) {
+			arr[i] = arr[cant - 1];
+			cant--;
+		}
+			
+	}
+
+	@Override
+	public int Elegir() {
+		return arr[0];
+	}
+
+	@Override
+	public boolean Pertenece(int x) {
+		int i = 0;
+		while(i < cant && arr[i] != x)
+			i++;
+		return (i < cant);
+	}
+
+	@Override
+	public boolean ConjuntoVacio() {
+		return (cant == 0);
+	}
+}
+
+//--------------------------------------------------------------------------------DicSimpleA
+
+package imp;
+
+import api.ConjuntoTDA;
+import api.DiccionarioSimpleTDA;
+
+public class DicSimpleA implements DiccionarioSimpleTDA {
+
+	class Elemento{
+		int clave;
+		int valor;
+	}
+	
+	Elemento[] arr;
+	int cant;
+	
+	@Override
+	public void InicializarDiccionario() {
+		arr = new Elemento[20];
+		cant = 0;
+	}
+
+	@Override
+	public void Agregar(int clave, int x) {
+		int pos = Clave2Indice(clave);
+		if(pos == -1) {
+			pos = cant;
+			arr[pos] = new Elemento();
+			arr[pos].clave = clave;
+			cant++;
+		}
+		arr[pos].valor = x;
+	}
+
+	@Override
+	public void Eliminar(int clave) {
+		int pos = Clave2Indice(clave);
+		if(pos != -1) {
+			arr[pos] = arr[cant - 1];
+			cant--;
+		}
+	}
+
+	@Override
+	public int Recuperar(int clave) {
+		int pos = Clave2Indice(clave);
+		return arr[pos].valor;
+	}
+
+	@Override
+	public ConjuntoTDA Claves() {
+		ConjuntoTDA c = new ConjuntoTA();
+		c.InicializarConjunto();
+		for(int i = 0; i < cant; i++) {
+			c.Agregar(arr[i].clave);
+		}
+		return c;
+	}
+
+	private int Clave2Indice(int clave) {
+		int i = cant - 1;
+		while(i >= 0 && arr[i].clave != clave)
+			i--;
+		return i;
+	}
+}
+
+//--------------------------------------------------------------------------------DicMultipleA
+
+package impl;
+
+import api.ConjuntoTDA;
+import api.DiccionarioMultipleTDA;
+
+public class DicMultipleA implements DiccionarioMultipleTDA {
+
+	class Elemento{
+		int clave;
+		int[] valores;
+		int cantValores;
+	}
+	
+	Elemento[] arr;
+	int cantClaves;
+	
+	@Override
+	public void InicializarDiccionario() {
+		arr = new Elemento[20];
+		cantClaves = 0;
+	}
+
+	@Override
+	public void Agregar(int clave, int valor) {
+		int PosC = Clave2Indice(clave);
+		if (PosC == -1) {
+			PosC = cantClaves;
+			arr[PosC] = new Elemento();
+			arr[PosC].clave = clave;
+			arr[PosC].valores = new int[20];
+			arr[PosC].cantValores = 0;
+			cantClaves++;
+		}
+		int PosV = Valor2Indice(arr[PosC], valor);
+		if (PosV == -1) {
+			arr[PosC].valores[arr[PosC].cantValores] = valor;
+			arr[PosC].cantValores++;
+		}
+	}
+
+	@Override
+	public void Eliminar(int clave) {
+		int PosC = Clave2Indice(clave);
+		if (PosC != -1) {
+			arr[PosC] = arr[cantClaves - 1];
+			cantClaves--;
+		}	
+	}
+
+	@Override
+	public void EliminarValor(int clave, int valor) {
+		int PosC = Clave2Indice(clave);
+		if (PosC != -1) {
+			int PosV = Valor2Indice(arr[PosC], valor);
+			if (PosV != -1) {
+				arr[PosC].valores[PosV] = arr[PosC].valores[arr[PosC].cantValores - 1];
+				arr[PosC].cantValores--;
+				if (arr[PosC].cantValores == 0)
+					Eliminar(clave);
+			}
+		}
+	}
+
+	@Override
+	public ConjuntoTDA Recuperar(int clave) {
+		ConjuntoTDA c = new ConjuntoTA();
+		c.InicializarConjunto();
+		int PosC = Clave2Indice(clave);
+		if (PosC != -1) {
+			for(int i = 0; i < arr[PosC].cantValores; i++) {
+				c.Agregar(arr[PosC].valores[i]);
+			}
+			return c;
+		}
+		return null;
+	}
+
+	@Override
+	public ConjuntoTDA Claves() {
+		ConjuntoTDA c = new ConjuntoTA();
+		c.InicializarConjunto();
+		for (int i = 0; i < cantClaves; i++)
+			c.Agregar(arr[i].clave);
+		return c;
+	}
+
+	private int Clave2Indice(int clave) {
+		int i = cantClaves - 1;
+		while(i >= 0 && arr[i].clave != clave)
+			i--;
+		return i;
+	}
+
+	private int Valor2Indice(Elemento e, int valor) {
+		int i = e.cantValores - 1;
+		while(i >= 0 && e.valores[i] != valor)
+			i--;
+		return i;
+	}
+}
+
+//--------------------------------------------------------------------------------ABB
+
+package imp;
+
+import api.ABBTDA;
+
+public class ABB implements ABBTDA {
+
+	class NodoABB{
+		int info;
+		ABBTDA hijoIzq;
+		ABBTDA hijoDer;
+	}
+	
+	NodoABB raiz;
+	
+	@Override
+	public void InicializarArbol() {
+		raiz = null;
+	}
+
+	@Override
+	public int Raiz() {
+		return raiz.info;
+	}
+
+	@Override
+	public ABBTDA HijoIzq() {
+		return raiz.hijoIzq;
+	}
+
+	@Override
+	public ABBTDA HijoDer() {
+		return raiz.hijoDer;
+	}
+
+	@Override
+	public void AgregarElem(int x) {
+		if (raiz == null) {
+			raiz = new NodoABB();
+			raiz.info = x;
+			raiz.hijoIzq = new ABB();
+			raiz.hijoIzq.InicializarArbol();
+			raiz.hijoDer = new ABB();
+			raiz.hijoDer.InicializarArbol();
+		} else if (raiz.info > x) {
+			raiz.hijoIzq.AgregarElem(x);
+		} else if (raiz.info < x) {
+			raiz.hijoDer.AgregarElem(x);
+		} 
+	}
+
+	@Override
+	public void EliminarElem(int x) {
+		if (raiz != null) {
+			if (raiz.info == x && raiz.hijoIzq.ArbolVacio() && raiz.hijoDer.ArbolVacio()) {
+				raiz = null;
+			} else if (raiz.info == x && !raiz.hijoIzq.ArbolVacio()) {
+				raiz.info = this.mayor(raiz.hijoIzq);
+				raiz.hijoIzq.EliminarElem(raiz.info);
+			} else if (raiz.info == x && raiz.hijoIzq.ArbolVacio()) {
+				raiz.info = this.menor(raiz.hijoDer);
+				raiz.hijoDer.EliminarElem(raiz.info);
+			} else if (raiz.info < x) {
+				raiz.hijoDer.EliminarElem(x);
+			} else {
+				raiz.hijoIzq.EliminarElem(x);
+			}
+		}
+	}
+
+	@Override
+	public boolean ArbolVacio() {
+		return (raiz == null);
+	}
+
+	private int mayor (ABBTDA a) {
+		if (a.HijoDer().ArbolVacio()) {
+			return a.Raiz();
+		} else {
+			return mayor(a.HijoDer());
+		}
+	}
+	
+	private int menor (ABBTDA a) {
+		if (a.HijoIzq().ArbolVacio()) {
+			return a.Raiz();
+		} else {
+			return menor(a.HijoIzq());
+		}
+	}
+}
+
+//--------------------------------------------------------------------------------GrafoLA
+
+package imp;
+
+import api.ConjuntoTDA;
+import api.GrafoTDA;
+
+public class GrafoLA implements GrafoTDA {
+
+	class NodoVertice{
+		int nodo;
+		NodoVertice sigNodo;
+		NodoArista arista;
+	}
+	
+	class NodoArista{
+		int peso;
+		NodoVertice nodoDestino;
+		NodoArista sigArista;
+	}
+	
+	NodoVertice origen;
+	
+	@Override
+	public void InicializarGrafo() {
+		origen = null;
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Un nuevo nodo del grafo se agrega siempre al inicio.                               //
+	// El nuevo nodo no tiene (inicialmente al menos) ninguna arista.                     //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public void AgregarVertice(int x) {
+		NodoVertice nuevo = new NodoVertice();	// El nuevo nodo se coloca al inicio
+		nuevo.nodo = x;
+		nuevo.arista = null;					// El nodo se agrega sin aristas inicialmente
+		nuevo.sigNodo = origen;
+		origen = nuevo;
+	}
+	//------------------------------------------------------------------------------------//
+	// Para eliminar un vértice, se lo elimina y se recorren todos los nodos para         //
+	// eliminar todas las aristas que tengan el vértice por ser eliminado como destino.   //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public void EliminarVertice(int x) {
+		if (origen.nodo == x)					// El primer vértice es el que debe eliminarse
+			origen = origen.sigNodo;
+		NodoVertice aux = origen;				// Se define un nodo viajero
+		while (aux != null) {					// El nodo "aux" recorre todos los vértices
+			this.EliminarAristaEnNodo(aux, x);
+			if (aux.sigNodo != null && aux.sigNodo.nodo == x) {
+				aux.sigNodo = aux.sigNodo.sigNodo;
+			}
+			aux = aux.sigNodo;
+		}
+	}
+	
+	//------------------------------------------------------------------------------------//
+	// Para agregar una arista, se buscan ambos vértices involucrados y se agrega la      //
+	// arista con el peso correspondiente. Se inserta la arista en la primera posición de //
+	// la lista del nodo inicial.                                                         //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public void AgregarArista(int x, int y, int w) {
+		NodoVertice n1 = Vertice2Nodo(x);
+		NodoVertice n2 = Vertice2Nodo(y);
+		NodoArista nuevo = new NodoArista();
+		nuevo.peso = w;
+		nuevo.nodoDestino = n2;
+		nuevo.sigArista = n1.arista;
+		n1.arista = nuevo;
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Para eliminar una arista, se busca el vértice inicial y se elimina la arista de    //
+	// su lista de aristas.                                                               //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public void EliminarArista(int x, int y) {
+		NodoVertice nodo = Vertice2Nodo(x);
+		EliminarAristaEnNodo(nodo, y);
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Para devolver el peso de una arista, se busca el vértice inicial y se devuelve el  //
+	// peso de la arista correspondiente en su lista de aristas.                          //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public int PesoArista(int x, int y) {
+		NodoVertice nodo = Vertice2Nodo(x);
+		NodoArista aux = nodo.arista;
+		while (aux.nodoDestino.nodo != y)
+			aux = aux.sigArista;
+		return aux.peso;
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Para determinar la existencia de una arista, se la busca en la lista del nodo      //
+	// inicial. Si la búsqueda es exitosa, se devuelve true; si no, false.                //
+	//------------------------------------------------------------------------------------//
+	@Override
+	public boolean ExisteArista(int x, int y) {
+		NodoVertice nodo = Vertice2Nodo(x);
+		NodoArista aux = nodo.arista;
+		while (aux != null && aux.nodoDestino.nodo != y)
+			aux = aux.sigArista;
+		return (aux != null);					// Sólo es null si no se encontró la arista
+	}
+
+	
+	@Override
+	public ConjuntoTDA Vertices() {
+		ConjuntoTDA CNodos = new ConjuntoTA();
+		CNodos.InicializarConjunto();
+		NodoVertice aux = origen;
+		while (aux != null) {
+			CNodos.Agregar(aux.nodo);
+			aux = aux.sigNodo;
+		}
+		return CNodos;
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Este método privado recibe un nodo y un vértice y elimina en ese nodo la arista    //
+	// que tiene como destino el vértice "v". Si no hay ninguna arista apuntando a "v",   //
+	// el método termina sin hacer nada.                                                  //
+	//------------------------------------------------------------------------------------//
+	private void EliminarAristaEnNodo(NodoVertice nodo, int v) {
+		NodoArista aux = nodo.arista;
+		if (aux != null) {
+			if (aux.nodoDestino.nodo == v) {		// La arista que debe eliminarse es la primera
+				nodo.arista = aux.sigArista;
+			} else {								// La arista que debe eliminarse es otra
+				while(aux.sigArista != null && aux.sigArista.nodoDestino.nodo != v)
+					aux = aux.sigArista;
+				if (aux.sigArista != null)			// Se encontró la arista
+					aux.sigArista = aux.sigArista.sigArista;
+			}
+		}
+	}
+
+	//------------------------------------------------------------------------------------//
+	// Este método privado busca el nodo correspondiente al vértice "x" y lo devuelve     //
+	// En caso de que no lo encuentre, devuelve "null".                                   //
+	//------------------------------------------------------------------------------------//
+	private NodoVertice Vertice2Nodo(int x) {	// Devuelve el nodo del vértice o null 
+		NodoVertice aux = origen;
+		while(aux !=null && aux.nodo != x)
+			aux = aux.sigNodo;
+		return aux;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//------------------------------//
+//  Implementaciones dinámicas  //
+//------------------------------//
+
+//--------------------------------------------------------------------------------Nodo
+
+package imp;
+
+public class Nodo {
+	public int info;
+	public Nodo sig;
+}
+
+//--------------------------------------------------------------------------------PilaLD
+
+package imp;
+
+import api.PilaTDA;
+
+public class PilaLD implements PilaTDA {
+
+	Nodo primero;
+	
+	@Override
+	public void InicializarPila() {
+		primero = null;
+	}
+
+	@Override
+	public void Apilar(int x) {
+		Nodo nuevo = new Nodo();
+		nuevo.info = x;
+		nuevo.sig = primero;
+		primero = nuevo;
+	}
+
+	@Override
+	public void Desapilar() {
+		primero = primero.sig;
+	}
+
+	@Override
+	public int Tope() {
+		return primero.info;
+	}
+
+	@Override
+	public boolean PilaVacia() {
+		return (primero == null);
+	}
+}

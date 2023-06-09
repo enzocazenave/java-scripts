@@ -10,4 +10,5 @@ public interface ListaAlumnosTDA {
     void eliminarAlumno(int legajo);
     int cantidadAlumnos();
     boolean existeAlumno(int legajo);
+    void ordenarLista();
 }

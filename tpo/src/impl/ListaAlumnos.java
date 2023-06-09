@@ -86,5 +86,38 @@ public class ListaAlumnos implements ListaAlumnosTDA {
 
     public void ordenarLista() {
         if (cantidadAlumnos() <= 1) return;
-    }
+
+        boolean cambio;
+
+        do {
+            Alumno actual = alumnoOrigen;
+            Alumno anterior = null;
+            Alumno siguiente = alumnoOrigen.siguiente;
+            cambio = false;
+
+            while (siguiente != null) {
+                if (actual.apellido.compareTo(siguiente.apellido) > 0) {
+                    cambio = true;
+
+                    if (anterior != null) {
+                        Alumno sig = siguiente.siguiente;
+                        anterior.siguiente = siguiente;
+                        siguiente.siguiente = actual;
+                        actual.siguiente = sig;
+                    } else {
+                        Alumno sig = siguiente.siguiente;
+                        alumnoOrigen = siguiente;
+                        siguiente.siguiente = actual;
+                        actual.siguiente = sig;
+                    }
+                    anterior = siguiente;
+                    siguiente = actual.siguiente;
+                } else {
+                    anterior = actual;
+                    actual = siguiente;
+                    siguiente = siguiente.siguiente;
+                }
+            }
+        } while(cambio);
+    }   
 }

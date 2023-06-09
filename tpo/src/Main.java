@@ -30,7 +30,7 @@ public class Main {
         }
 
         ListaDeAlumnos.mostrarLista();
-
-
+        ListaDeAlumnos.ordenarLista();
+        ListaDeAlumnos.mostrarLista();
     }
 }

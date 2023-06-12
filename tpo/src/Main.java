@@ -29,8 +29,10 @@ public class Main {
             ListaDeAlumnos.agregarAlumno(legajo, nombre, apellido);
         }
 
+        System.out.println("LISTA DE ALUMNOS DESORDENADA");
         ListaDeAlumnos.mostrarLista();
         ListaDeAlumnos.ordenarLista();
+        System.out.println("LISTA DE ALUMNOS ORDENADA");
         ListaDeAlumnos.mostrarLista();
     }
 }

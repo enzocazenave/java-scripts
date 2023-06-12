@@ -57,9 +57,11 @@ public class ListaAlumnos implements ListaAlumnosTDA {
     public void mostrarLista() {
         System.out.println("-----------------------");
         Alumno alumnoActual = alumnoOrigen;
+        int contador = 0;
 
         while (alumnoActual != null) {
-            System.out.println("["+alumnoActual.legajo+"] " + alumnoActual.nombre + " " + alumnoActual.apellido);
+            contador++;
+            System.out.println(contador+" - ["+alumnoActual.legajo+"] " + alumnoActual.nombre + " " + alumnoActual.apellido);
             alumnoActual = alumnoActual.siguiente;
         }
         System.out.println("-----------------------");

@@ -13,7 +13,7 @@ public class ListaAlumnos implements ListaAlumnosTDA {
 
     public void agregarAlumno(int legajo, String nombre, String apellido) {
         if (existeAlumno(legajo)) {
-            System.out.println("El alumno ["+legajo+"] ya existe.");
+            System.out.println("El alumno [" + legajo + "] ya existe.");
             return;
         }
 
@@ -26,7 +26,8 @@ public class ListaAlumnos implements ListaAlumnosTDA {
     }
 
     public Alumno siguiente() {
-        if (!haySiguiente()) return alumnoOrigen;
+        if (!haySiguiente())
+            return alumnoOrigen;
 
         Alumno alumnoActual = alumnoOrigen;
         alumnoOrigen = alumnoOrigen.siguiente;
@@ -35,7 +36,7 @@ public class ListaAlumnos implements ListaAlumnosTDA {
 
     public void eliminarAlumno(int legajo) {
         if (cantidadAlumnos() == 0 || !existeAlumno(legajo)) {
-            System.out.println("El alumno [" +legajo+"] no existe.");
+            System.out.println("El alumno [" + legajo + "] no existe.");
             return;
         }
 
@@ -61,15 +62,18 @@ public class ListaAlumnos implements ListaAlumnosTDA {
 
         while (alumnoActual != null) {
             contador++;
-            System.out.println(contador+" - ["+alumnoActual.legajo+"] " + alumnoActual.nombre + " " + alumnoActual.apellido);
+            System.out.println(
+                    contador + " - [" + alumnoActual.legajo + "] " + alumnoActual.nombre + " " + alumnoActual.apellido);
             alumnoActual = alumnoActual.siguiente;
         }
         System.out.println("-----------------------");
     }
 
     public boolean existeAlumno(int legajo) {
-        if (cantidadAlumnos() == 0) return false;
-        if (alumnoOrigen.legajo == legajo) return true;
+        if (cantidadAlumnos() == 0)
+            return false;
+        if (alumnoOrigen.legajo == legajo)
+            return true;
 
         boolean existe = false;
         Alumno alumnoActual = alumnoOrigen;
@@ -87,7 +91,8 @@ public class ListaAlumnos implements ListaAlumnosTDA {
     }
 
     public void ordenarLista() {
-        if (cantidadAlumnos() <= 1) return;
+        if (cantidadAlumnos() <= 1)
+            return;
 
         boolean cambio;
 
@@ -112,6 +117,7 @@ public class ListaAlumnos implements ListaAlumnosTDA {
                         siguiente.siguiente = actual;
                         actual.siguiente = sig;
                     }
+
                     anterior = siguiente;
                     siguiente = actual.siguiente;
                 } else {
@@ -120,6 +126,6 @@ public class ListaAlumnos implements ListaAlumnosTDA {
                     siguiente = siguiente.siguiente;
                 }
             }
-        } while(cambio);
-    }   
+        } while (cambio);
+    }
 }

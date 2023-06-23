@@ -94,30 +94,28 @@ public class ListaAlumnos implements ListaAlumnosTDA {
         if (cantidadAlumnos() <= 1)
             return;
 
-        boolean cambio;
+        boolean cambio = false;
 
-        do {
+        while (!cambio) {
             Alumno actual = alumnoOrigen;
             Alumno anterior = null;
             Alumno siguiente = alumnoOrigen.siguiente;
-            cambio = false;
+            cambio = true;
 
             while (siguiente != null) {
                 if (actual.apellido.compareTo(siguiente.apellido) > 0) {
-                    cambio = true;
+                    cambio = false;
+
+                    Alumno sig = siguiente.siguiente;
 
                     if (anterior != null) {
-                        Alumno sig = siguiente.siguiente;
                         anterior.siguiente = siguiente;
-                        siguiente.siguiente = actual;
-                        actual.siguiente = sig;
                     } else {
-                        Alumno sig = siguiente.siguiente;
                         alumnoOrigen = siguiente;
-                        siguiente.siguiente = actual;
-                        actual.siguiente = sig;
                     }
 
+                    siguiente.siguiente = actual;
+                    actual.siguiente = sig;
                     anterior = siguiente;
                     siguiente = actual.siguiente;
                 } else {
@@ -126,6 +124,6 @@ public class ListaAlumnos implements ListaAlumnosTDA {
                     siguiente = siguiente.siguiente;
                 }
             }
-        } while (cambio);
+        }
     }
 }

@@ -10,10 +10,11 @@ public class Main {
 
         System.out.println("Cuantos alumnos desea ingresar en la lista?");
         int cantidadDeAlumnos = requestEntry.nextInt();
+        int ui = cantidadDeAlumnos + 1;
         System.out.println("---------------------");
 
-        for (int i = 0; i < cantidadDeAlumnos; i ++) {
-            System.out.println("Alumno ["+(i + 1)+"]");
+        while (cantidadDeAlumnos != 0) {
+            System.out.println("Alumno ["+(ui - cantidadDeAlumnos)+"]");
 
             System.out.print("Ingrese numero de legajo: ");
             int legajo = requestEntry.nextInt();
@@ -25,8 +26,14 @@ public class Main {
             String apellido = requestEntry.next();
 
             System.out.println("---------------------");
+            
+            if (!ListaDeAlumnos.existeAlumno(legajo)) {
+                ListaDeAlumnos.agregarAlumno(legajo, nombre, apellido);
+                cantidadDeAlumnos--;
+                continue;
+            }
 
-            ListaDeAlumnos.agregarAlumno(legajo, nombre, apellido);
+            System.out.println("El alumno con legajo " + legajo + " ya existe, vuelva a ingresar los datos.");
         }
 
         System.out.println("LISTA DE ALUMNOS DESORDENADA");

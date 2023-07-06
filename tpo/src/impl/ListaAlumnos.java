@@ -62,8 +62,7 @@ public class ListaAlumnos implements ListaAlumnosTDA {
 
         while (alumnoActual != null) {
             contador++;
-            System.out.println(
-                    contador + " - [" + alumnoActual.legajo + "] " + alumnoActual.nombre + " " + alumnoActual.apellido);
+            System.out.println(contador + " - LU: " + alumnoActual.legajo + " - " + alumnoActual.nombre + " " + alumnoActual.apellido);
             alumnoActual = alumnoActual.siguiente;
         }
         System.out.println("-----------------------");
@@ -94,17 +93,18 @@ public class ListaAlumnos implements ListaAlumnosTDA {
         if (cantidadAlumnos() <= 1)
             return;
 
-        boolean cambio = false;
+        boolean finalizado = false;
 
-        while (!cambio) {
+        while (!finalizado) {
             Alumno actual = alumnoOrigen;
             Alumno anterior = null;
             Alumno siguiente = alumnoOrigen.siguiente;
-            cambio = true;
+            System.out.println("Ejecutado -- Ordenar lista");
+            finalizado = true;
 
             while (siguiente != null) {
                 if (actual.apellido.compareTo(siguiente.apellido) > 0) {
-                    cambio = false;
+                    finalizado = false;
 
                     Alumno sig = siguiente.siguiente;
 

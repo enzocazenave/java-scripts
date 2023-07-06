@@ -99,7 +99,6 @@ public class ListaAlumnos implements ListaAlumnosTDA {
             Alumno actual = alumnoOrigen;
             Alumno anterior = null;
             Alumno siguiente = alumnoOrigen.siguiente;
-            System.out.println("Ejecutado -- Ordenar lista");
             finalizado = true;
 
             while (siguiente != null) {

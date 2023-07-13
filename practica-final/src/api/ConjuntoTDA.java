@@ -7,4 +7,5 @@ public interface ConjuntoTDA {
 	int Elegir();
 	boolean Pertenece(int x);
 	boolean ConjuntoVacio();
+	void MostrarConjunto();
 }

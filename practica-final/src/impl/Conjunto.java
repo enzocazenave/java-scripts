@@ -51,4 +51,24 @@ public class Conjunto implements ConjuntoTDA {
 	public boolean ConjuntoVacio() {
 		return (cant == 0);
 	}
+
+	public void MostrarConjunto() {
+		ConjuntoTDA aux = new Conjunto();
+		aux.InicializarConjunto();
+		int g;
+		System.out.print("{ ");
+		while(!this.ConjuntoVacio()) {
+			g=this.Elegir();
+			this.Sacar(g);
+			aux.Agregar(g);
+			System.out.print(g+" ");
+		}
+		System.out.print("}");
+		while(!aux.ConjuntoVacio()) {
+			g=aux.Elegir();
+			aux.Sacar(g);
+			this.Agregar(g);
+		}
+
+	}
 }

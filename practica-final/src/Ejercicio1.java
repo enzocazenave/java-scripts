@@ -19,7 +19,7 @@ public class Ejercicio1 {
         colaB.Acolar(3);
         colaB.Acolar(1);
         colaB.Acolar(1);
-        colaB.Acolar(2);
+        colaB.Acolar(5);
 
         boolean resultado = contienenMismosElementos(colaA, colaB);
         System.out.println("------");

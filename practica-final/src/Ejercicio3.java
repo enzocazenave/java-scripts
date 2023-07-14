@@ -16,7 +16,7 @@ public class Ejercicio3 {
         grafo.AgregarVertice(6);
         grafo.AgregarVertice(7);
 
-        grafo.AgregarArista(2,2,4);
+        grafo.AgregarArista(2,3,4);
         grafo.AgregarArista(3,4,4);
         grafo.AgregarArista(4,5,4);
 
